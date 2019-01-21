@@ -1,8 +1,8 @@
-CREATE DATABASE xnn;
+CREATE DATABASE indotel;
 
-USE xnn;
+USE indotel;
 
-CREATE TABLE xnn (
+CREATE TABLE indotel (
     id smallint unsigned not null auto_increment,
     prestadora varchar(50) not null,
     tipo varchar(50) not null,

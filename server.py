@@ -13,9 +13,9 @@ api = Api(app)
 
 database = pymysql.connect (
     host="localhost",
-    user = "ivanubi",
-    passwd = "ubinas",
-    db = "xnn", # Database with all the NXX phone codes from INDOTEL.
+    user = "username",
+    passwd = "password",
+    db = "indotel", # Database with all the NXX phone codes from INDOTEL.
     cursorclass=pymysql.cursors.DictCursor)
 
 class Phone_Number(Resource):
@@ -25,12 +25,12 @@ class Phone_Number(Resource):
             cursor = database.cursor()
             npa = number[0:3] # Numbering Plan Area
             nxx = number[3:6] # Three-digit code
-            sql = "SELECT `prestadora`, `tipo`, `npa`,`nxx` FROM `xnn` WHERE (`npa`= " + npa + " AND `nxx`= " + nxx + " ); "
+            sql = "SELECT `prestadora`, `tipo`, `npa`,`nxx` FROM `indotel` WHERE (`npa`= " + npa + " AND `nxx`= " + nxx + " ); "
             query = cursor.execute(sql)
             results = cursor.fetchall()
 
-            # Check if the result dictionary is empty. If it's empty 'bool(results)' ...
-            # ... will be False.
+            # Check if the result dictionary is empty.
+            # bool(results)' will be True if it has something inside.
             if (bool(results) == True):
                 print(results)
                 return jsonify(results)
@@ -38,9 +38,9 @@ class Phone_Number(Resource):
 def close_connection():
     database.close()
 
-atexit.register( close_connection ) # Close the database after Flask is shutdown:
+atexit.register( close_connection ) # Close the database after Flask is shutdown.
 
-api.add_resource(Phone_Number, '/number/<number>') # Route_3
+api.add_resource(Phone_Number, '/number/<number>') # Route.
 
 
 if __name__ == '__main__':
