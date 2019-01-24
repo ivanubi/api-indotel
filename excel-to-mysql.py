@@ -2,7 +2,7 @@ import xlrd
 import pymysql
 
 # Open the workbook and define the worksheet
-book = xlrd.open_workbook("indotel-nxx.xlsx")
+book = xlrd.open_workbook("indotel-excel.xlsx")
 sheet = book.sheet_by_name("nxxkist")
 # sheet = book.shet_by_index(1)
 
@@ -43,8 +43,8 @@ database.close()
 
 # Print results
 print("")
-print("All Done! Bye, for now.")
+print("DONE!")
 print("")
 columns = str(sheet.ncols)
 rows = str(sheet.nrows)
-print ("I just imported " + columns + " columns and " + rows + " rows to MySQL!")
+print ("You just imported " + columns + " columns and " + rows + " rows to MySQL!")

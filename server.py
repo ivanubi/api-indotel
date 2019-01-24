@@ -11,10 +11,12 @@ import atexit
 app = Flask(__name__)
 api = Api(app)
 
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 database = pymysql.connect (
     host="localhost",
-    user = "username",
-    passwd = "password",
+    user = "ivanubi",
+    passwd = "ubinas",
     db = "indotel", # Database with all the NXX phone codes from INDOTEL.
     cursorclass=pymysql.cursors.DictCursor)
 
@@ -25,7 +27,7 @@ class Phone_Number(Resource):
             cursor = database.cursor()
             npa = number[0:3] # Numbering Plan Area
             nxx = number[3:6] # Three-digit code
-            sql = "SELECT `prestadora`, `tipo`, `npa`,`nxx` FROM `indotel` WHERE (`npa`= " + npa + " AND `nxx`= " + nxx + " ); "
+            sql = "SELECT `prestadora`, `tipo`, `npa`,`nxx`,`localidad` FROM `indotel` WHERE (`npa`= " + npa + " AND `nxx`= " + nxx + " AND `tipo` != '1-809-200');"
             query = cursor.execute(sql)
             results = cursor.fetchall()
 
