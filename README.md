@@ -8,7 +8,8 @@
 ## Ejemplo:
 www.example.com/number/8092412222 retornará:
 
-```[
+```
+[
   {
     "localidad": "Santiago",
     "npa": 809,
