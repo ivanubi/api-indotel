@@ -42,8 +42,8 @@ def close_connection():
 
 atexit.register( close_connection ) # Close the database after Flask is shutdown.
 
-api.add_resource(Phone_Number, '/number/<number>') # Route.
+api.add_resource(Phone_Number, '/phone_number/<number>') # Route.
 
 
 if __name__ == '__main__':
-     app.run(port='5002')
+     app.run()
