@@ -40,6 +40,10 @@ class Phone_Number(Resource):
 def close_connection():
     database.close()
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return("La URL debe ser del tipo: https://apiindotel.azurewebsites.net/phone_number/<telefono>")
+
 atexit.register( close_connection ) # Close the database after Flask is shutdown.
 
 api.add_resource(Phone_Number, '/phone_number/<number>') # Route.
