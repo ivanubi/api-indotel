@@ -15,8 +15,8 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 database = pymysql.connect (
     host="localhost",
-    user = "ivanubi",
-    passwd = "ubinas",
+    user = "azure",
+    passwd = "6#vWHD_$",
     db = "indotel", # Database with all the NXX phone codes from INDOTEL.
     cursorclass=pymysql.cursors.DictCursor)
 
