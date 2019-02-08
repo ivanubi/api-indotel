@@ -1,24 +1,15 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-
 from json import dumps
 from flask_jsonpify import jsonify
-
 import pymysql.cursors
-
 import atexit
+import settings
 
 app = Flask(__name__)
 api = Api(app)
-
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
-database = pymysql.connect (
-    host="localhost",
-    user = "azure",
-    passwd = "6#vWHD_$",
-    db = "indotel", # Database with all the NXX phone codes from INDOTEL.
-    cursorclass=pymysql.cursors.DictCursor)
+database = settings.db_configure()
 
 class Phone_Number(Resource):
     def get(self, number):
@@ -31,23 +22,22 @@ class Phone_Number(Resource):
             query = cursor.execute(sql)
             results = cursor.fetchall()
 
-            # Check if the result dictionary is empty.
+            # Check if the resulted dictionary is empty.
             # bool(results)' will be True if it has something inside.
             if (bool(results) == True):
                 print(results)
                 return jsonify(results)
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return("WRONG_URL. Use the correct format: https://apiindotel.azurewebsites.net/phone_numbers/<phone_number>")
+
 def close_connection():
     database.close()
 
-@app.errorhandler(404)
-def page_not_found(error):
-    return("La URL debe ser del tipo: https://apiindotel.azurewebsites.net/phone_number/<telefono>")
-
 atexit.register( close_connection ) # Close the database after Flask is shutdown.
 
-api.add_resource(Phone_Number, '/phone_number/<number>') # Route.
-
+api.add_resource(Phone_Number, '/phone_numbers/<number>') # Route.
 
 if __name__ == '__main__':
      app.run()
