@@ -1,7 +1,7 @@
 import xlrd
 import pymysql
 
-book = xlrd.open_workbook("excel-numbers.xlsx")
+book = xlrd.open_workbook("excel_numbers.xlsx")
 sheet = book.sheet_by_name("nxxkist")
 
 database = pymysql.connect (
