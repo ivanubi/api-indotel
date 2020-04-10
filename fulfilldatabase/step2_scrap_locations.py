@@ -6,9 +6,9 @@ import pymysql.cursors
 
 database = pymysql.connect (
     host="localhost",
-    user = "ivanubi",
-    passwd = "ubinas",
-    db = "indotel", # Database with all the NXX phone codes from INDOTEL.
+    user = "username",
+    passwd = "password",
+    db = "indotel",
     )
 
 #NXX: NXX stands for Network Numbering Exchange (in North American Numbering Plan)
@@ -20,7 +20,7 @@ def local_numbers():
     results = cursor.fetchall()
     return results
 
-def fullfil_locations():
+def fulfill_locations():
     try:
         cursor = database.cursor()
         sql = "SELECT `nxx` FROM `indotel` WHERE (`tipo`= 'LINEA FIJA'); "
@@ -32,13 +32,11 @@ def fullfil_locations():
                 query = "UPDATE indotel SET localidad = '" + localidad +"' WHERE (nxx = " + str(nxx[0]) + " AND `tipo`= 'LINEA FIJA');"
                 cursor.execute(query)
                 print("NXX: " + str(nxx[0]) + " / Localidad: " + localidad)
-        cursor.close() # Close the cursor
-        database.commit() # Commit the transaction
-        database.close() # Close the database connection
+        cursor.close()
+        database.commit()
+        database.close()
     except TypeError as error:
-        print("Error")
         pass
-
 
 def top_url(nxx):
     if isinstance(nxx, int):
@@ -90,4 +88,4 @@ def location(nxx):
     except AttributeError as error:
         pass
 
-fullfil_locations()
+fulfill_locations()
