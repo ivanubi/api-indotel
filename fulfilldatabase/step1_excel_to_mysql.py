@@ -2,7 +2,7 @@ import xlrd
 import pymysql
 
 # Open the workbook and define the worksheet
-book = xlrd.open_workbook("indotel-excel.xlsx")
+book = xlrd.open_workbook("excel-numbers.xlsx")
 sheet = book.sheet_by_name("nxxkist")
 # sheet = book.shet_by_index(1)
 
